@@ -5,9 +5,9 @@ FROM ubuntu:latest
 RUN apt-get -y update && apt-get -y install openjdk-17-jdk wget
  
 # Download and extract Tomcat
-RUN wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.25/bin/apache-tomcat-10.1.25.tar.gz -O /tmp/tomcat.tar.gz 
+RUN wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.26/bin/apache-tomcat-10.1.26.tar.gz -O /tmp/tomcat.tar.gz 
 RUN cd /tmp && tar xvfz tomcat.tar.gz 
-RUN mv /tmp/apache-tomcat-10.1.25 /opt/tomcat
+RUN mv /tmp/apache-tomcat-10.1.26 /opt/tomcat
 
 # Copy the WAR file to the Tomcat webapp directory
 COPY target/ABCtechnologies-1.0.war  /opt/tomcat/webapps/
