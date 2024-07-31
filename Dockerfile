@@ -18,7 +18,7 @@ RUN wget ${TOMCAT_URL} -O /tmp/tomcat.tar.gz && \
     rm /tmp/tomcat.tar.gz
 
 # Add WAR file to Tomcat webapps
-COPY your-application.war ${TOMCAT_HOME}/webapps/
+COPY */.war ${TOMCAT_HOME}/webapps/
 
 # Expose Tomcat port
 EXPOSE 8080
