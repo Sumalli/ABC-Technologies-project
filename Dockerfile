@@ -1,3 +1,4 @@
+#Base Image
 FROM ubuntu:latest
 
 # Install necessary packages
@@ -16,7 +17,6 @@ EXPOSE 8080
 
 # Start Tomcat
 CMD ["/opt/tomcat/bin/catalina.sh", "run"]
-
 
 
 //# Use a base image with a Java runtime
