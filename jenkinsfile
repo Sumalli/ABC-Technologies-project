@@ -1,0 +1,52 @@
+pipeline {
+    agent{
+    label{
+        label 'centos-server'
+    }    
+    }
+    
+triggers{
+    pollSCM 'H/2 * * * *'
+}
+    
+    tools {
+        maven 'Apache_Maven_3.9.6'
+    }
+    
+    stages {
+        stage('Compile') {
+            steps {
+                git 'https://github.com/Sumalli/ABC-Technologies-project.git'
+                sh 'mvn compile'
+            }
+        }
+
+        stage('Unit Testing') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit '**/target/surefire-reports/*.xml'
+                }
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+            post {
+                always {
+                    archiveArtifacts artifacts: '**/target/*.war', followSymlinks: false
+                }
+            }
+        }
+
+        stage('Clean and Install') {
+            steps {
+                sh 'mvn clean install'
+            }
+        }
+    }
+}
