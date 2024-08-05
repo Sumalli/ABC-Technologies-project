@@ -1,0 +1,35 @@
+- hosts: localhost
+  become: yes
+  gather_facts: true
+  tasks:
+    - name: Build an image and push it to a private repo
+      community.docker.docker_image:
+        build:
+          path: "/opt/Jenkins/ABC-Technologies-project"
+        name: docker.io/mallieswari/abctechnologies
+        tag: latest
+        push: true
+        source: build
+      register: build_image_out
+
+    - debug:
+        var: build_image_out
+
+    - name: Start a container
+      community.docker.docker_container:
+        name: abc-techcontainer
+        image: mallieswari/abctechnologies
+        state: started
+        ports:
+          - 8090:8080
+      register: build_container_out
+
+    - debug:
+        var: build_container_out
+
+    - name: Create a Deployment by reading the definition from a local file
+      command: kubectl --kubeconfig=/home/minikubeuser/.kube/config apply -f /opt/Jenkins/ABC-Technologies-project/deployment.yaml
+      register: out
+
+    - debug:
+        var: out
