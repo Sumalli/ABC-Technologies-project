@@ -33,4 +33,4 @@ spec:
     app: abc-tech-app
   ports:
     - port: 80          # cluster port
-      targetPort: 8080  # container image port
+      targetPort: 8090  # container image port
